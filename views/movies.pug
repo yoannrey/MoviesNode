@@ -1,0 +1,10 @@
+extends layout
+block content
+  h1 Nos Movies
+  each movie in movies
+    a(href=`/api/v1/${movie.id}/`)
+      .card
+        .card-header
+          .card-title.h5=movie.title
+        .card-body
+        

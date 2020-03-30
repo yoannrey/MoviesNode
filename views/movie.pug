@@ -1,0 +1,5 @@
+extends layout
+block content
+  h1 movie
+    a(href=`/api/v1/edit/${movie.id}`) Edit
+    a(href=`/api/v1/remove/${movie.id}`) Delete
