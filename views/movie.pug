@@ -1,5 +1,10 @@
 extends layout
 block content
-  h1 movie
-    a(href=`/api/v1/edit/${movie.id}`) Edit
-    a(href=`/api/v1/remove/${movie.id}`) Delete
+  h1=movie.title + ' ( ' + movie.category + ' - ' +  movie.original_language + ' )'
+  hr
+  div(class="allelements")
+    div(class="poster")
+      img(src=movie.moviePicture)
+    div(class="desc")
+      p=movie.overview
+  

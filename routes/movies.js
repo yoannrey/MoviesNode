@@ -1,5 +1,6 @@
 const express = require('express');
 const Movie = require('./models/movie')
+const Category = require('./models/catergorie')
 const api = express.Router()
 const apiKey = '8983a24df86dd2ea15d86499d5ba0900'
 
@@ -7,7 +8,9 @@ const apiKey = '8983a24df86dd2ea15d86499d5ba0900'
 api.get('/all', (req,res)=> {
   Movie.find({}, (err,movies) => {
     if(err) console.error(err)
-    res.render('movies',{movies: movies});
+    Category.find({}, (err,categories) => {
+      res.render('movies',{movies: movies, categories: categories});
+    })
   })
 })
 api.get('/add', (req,res) => {

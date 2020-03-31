@@ -11,12 +11,13 @@ db.once('open', () => {
 })
 
 const Movie = require('../routes/models/movie')
+const Category = require('../routes/models/catergorie')
 const request = require('request');
 let ids = [];
 
 function fillIds(arr) {
     return new Promise((resolve, reject) => {
-        const url = 'https://api.themoviedb.org/3/movie/popular?api_key=8983a24df86dd2ea15d86499d5ba0900&language=en-US&page=2'
+        const url = 'https://api.themoviedb.org/3/movie/popular?api_key=8983a24df86dd2ea15d86499d5ba0900&language=en-US&page=5'
         request(url, { json: true }, (err, res, body) => {
             if (err) { return console.log(err); }
             for (let i = 0; i < body.results.length; i++)
@@ -40,10 +41,22 @@ function fillInfos(ids) {
             });
             newMovie.save((err, movie) => {
                 if(err) console.error(err)
-                console.log(movie)
             })
         })
     }
+}
+
+function fillCat() {
+    request('https://api.themoviedb.org/3/genre/movie/list?api_key=8983a24df86dd2ea15d86499d5ba0900&language=en-US', { json: true }, (err, res, body) => {
+        //const newCat = new Category({name: body.genre})
+        for (let i = 0; i < body.genres.length; i++) {
+            const newCat = new Category({name: body.genres[i].name})
+            newCat.save((err, category) => {
+                if(err) console.error(err)
+                console.log(category)
+            })
+        }
+    })
 }
            
             // const newMovie = new Movie(body.title.replace(/ /g,'aa'),
@@ -67,3 +80,4 @@ promise.then(() => {
     fillInfos(ids);
     // mongoose.connection.close()
 })
+fillCat();
