@@ -2,12 +2,18 @@ extends layout
 block content
   .form-group
   form(action="/api/v1/add", method="post")
-    input.form-input(type='text', name="title", placeholder='Title')
-    input.form-input(placeholder='Category', name="category")
-    textarea.form-input(placeholder='Description', name="description", rows="3")
-    input.form-input(placeholder='Realisator', name="realisator")
-    input.form-input(placeholder='Country', name="country")
-    input.form-input(placeholder='Language', name="language")
-    input.form-input(placeholder='Image', name="moviePicture")
-    button.btn.btn-primary.input-group-btn(type=submit) envoyer
+    .form-group
+      input.form-input(type="text" name="title" placeholder='Titre du film')
+    .form-group
+      input.form-input(type="text" name="category" placeholder='Catégorie du film')
+    .form-group
+      textarea.form-input(type="text" style="height: calc(1.5em + .75rem + 100px);" name="overview" placeholder='Synopsis')
+    .form-group
+      input.form-input(type="text" name="country" placeholder='Pays')
+    .form-group
+      input.form-input(type="text" name="original_language" placeholder='Langue')
+    .form-group
+      input.form-input(type="file" name="moviePicture" placeholder='Langue' accept="image/*")    
+    button.btn-primary.input-group-btn(type='submit') Submit
+
 

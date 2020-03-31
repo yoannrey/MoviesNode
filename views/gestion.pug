@@ -1,0 +1,26 @@
+extends layout
+block content
+    h1 Gestion
+    table(class="containerTable")
+        thead
+            tr
+                th(style="width: 11%;") Film
+                th(style="width: 11%;") Pays
+                th(style="width: 5%;") Langue
+                th(style="width: 30%;") Synopsis
+                th(style="width: 11%;") Catégorie
+                th(style="width: 5%;") Mise à jour
+                th(style="width: 5%;") Effacer
+        tbody
+            for movie in movies
+                tr
+                    td(style="width: 11%;")=movie.title
+                    td(style="width: 11%;")=movie.country
+                    td(style="width: 5%;")=movie.original_language
+                    td(style="width: 30%;")=movie.overview
+                    td(style="width: 11%;")=movie.category
+                    td(style="width: 5%;")
+                        i(href="" class="fas fa-pen")
+                    td(style="width: 5%;") 
+                        a(style="color: white" href=`/api/v1/remove/${movie.id}` class="fas fa-times-circle")
+        

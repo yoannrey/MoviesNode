@@ -13,6 +13,7 @@ api.get('/all', (req,res)=> {
     })
   })
 })
+
 api.get('/add', (req,res) => {
   res.render('_form')
 })
@@ -20,9 +21,17 @@ api.post('/add', (req,res) => {
   const newMovie = new Movie(req.body)
   newMovie.save((err, movie) => {
     if(err) console.error(err)
+    console.log(movie)
     res.json(movie);
   })
 })
+
+api.get('/gestion', (req, res) => {
+  Movie.find({}, (err, movies) => {
+    res.render('gestion', {movies: movies})
+  })
+})
+
 api.get('/:id', (req,res)=> {
   Movie.findById(req.params.id, (err, movie) => {
     if(err) console.error(err)
@@ -51,7 +60,7 @@ Movie.findById(id, (err, movie) => {
 api.get('/remove/:id', (req,res)=> {
   Movie.findByIdAndDelete(req.params.id, (err, movie) => {
     if(err) console.error(err)
-    res.redirect('/api/v1/all')
+    res.redirect('/api/v1/gestion')
   })
 })
 module.exports = api;

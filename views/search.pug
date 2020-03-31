@@ -1,0 +1,14 @@
+extends layout
+block content
+  h1 Netflux
+
+    h2 Result
+    hr
+    each movie in movies
+        a(href=`/api/v1/${movie.id}/`)
+            div(class="container")
+                img(class="image" src=movie.moviePicture)
+                button(class="btn btn-primary")
+                span(class="title")=movie.title
+                a(class="description")=movie.overview
+          

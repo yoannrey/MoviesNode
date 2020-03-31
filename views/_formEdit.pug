@@ -1,7 +1,7 @@
 extends layout
 block content
     .form-group
-        form(action=`/api/v1/edit/${foodtruck.id}`, method="post")
+        form(action=`/api/v1/edit/${movie.id}`, method="post")
             input.form-input(type='text', name="name", placeholder='Name', value= movie.title)
-            textarea.form-input(placeholder="Movie", name="movie", rows='3' value= movie.) //- Entrez des valeurs
-            button.btn.btn-primary.input-group-btn(type=submit) envoyer
+            textarea.form-input(placeholder="Résumé", name="movie", rows='3', value= movie.overview)
+            button.btn-primary.input-group-btn(type=submit) envoyer

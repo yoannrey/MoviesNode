@@ -10,6 +10,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log(`[MongoDB is running]`);
 })
+
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'pug');
 app.set('views','./views');
