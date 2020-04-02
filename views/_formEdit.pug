@@ -1,7 +1,20 @@
 extends layout
 block content
+  .form-group
+  form(class="box" action=`/api/v1/edit/${movie.id}`, method="post" enctype="multipart/form-data")
     .form-group
-        form(action=`/api/v1/edit/${movie.id}`, method="post")
-            input.form-input(type='text', name="name", placeholder='Name', value= movie.title)
-            textarea.form-input(placeholder="Résumé", name="movie", rows='3', value= movie.overview)
-            button.btn-primary.input-group-btn(type=submit) envoyer
+        input.form-input(type="text" name="title" placeholder='Titre du film', value=movie.title)
+    .form-group
+        select#propertyType(name="category")=movie.category
+            for category in categories
+                option(value=category.name)=category.name
+    .form-group
+        textarea.form-input( type="text" style="height: calc(1.5em + .75rem + 100px);" name="overview" placeholder='Synopsis')= movie.overview
+    .form-group
+        input.form-input(type="text" name="country" placeholder='Pays' value=movie.country)
+    .form-group
+        input.form-input(type="text" name="original_language" placeholder='Langue' value=movie.original_language)
+    .form-group
+        input.form-input(type="file" name="moviePicture" accept="image/*")
+    button.btn-primary.input-group-btn(type='submit') Submit
+

@@ -20,7 +20,7 @@ block content
                     td(style="width: 30%;")=movie.overview
                     td(style="width: 11%;")=movie.category
                     td(style="width: 5%;")
-                        i(href="" class="fas fa-pen")
+                        a(style="color: white" href=`/api/v1/edit/${movie.id}` class="fas fa-pen")
                     td(style="width: 5%;") 
                         a(style="color: white" href=`/api/v1/remove/${movie.id}` class="fas fa-times-circle")
         

@@ -5,7 +5,9 @@ block content
     .form-group
       input.form-input(type="text" name="title" placeholder='Titre du film')
     .form-group
-      input.form-input(type="text" name="category" placeholder='Catégorie du film')
+      select#propertyType(name="category")
+        for category in categories
+          option(value=category.name)=category.name
     .form-group
       textarea.form-input(type="text" style="height: calc(1.5em + .75rem + 100px);" name="overview" placeholder='Synopsis')
     .form-group

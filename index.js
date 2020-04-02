@@ -4,6 +4,7 @@ const port = process.env.PORT || 5555;
 const router = require('./routes/movies')
 const mongoose = require('mongoose');
 
+
 mongoose.connect('mongodb://localhost/moviesdb', {useNewUrlParser: true});
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -18,6 +19,7 @@ app.set('views','./views');
 app.get('/', (req, res) => {
   res.send('coucou');
 })
+
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use('/api/v1', router);

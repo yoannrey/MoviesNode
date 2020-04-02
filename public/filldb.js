@@ -14,10 +14,11 @@ const Movie = require('../routes/models/movie')
 const Category = require('../routes/models/catergorie')
 const request = require('request');
 let ids = [];
+let catergorie = []
 
 function fillIds(arr) {
     return new Promise((resolve, reject) => {
-        const url = 'https://api.themoviedb.org/3/movie/popular?api_key=8983a24df86dd2ea15d86499d5ba0900&language=en-US&page=5'
+        const url = 'https://api.themoviedb.org/3/movie/popular?api_key=8983a24df86dd2ea15d86499d5ba0900&language=en-US&page=6'
         request(url, { json: true }, (err, res, body) => {
             if (err) { return console.log(err); }
             for (let i = 0; i < body.results.length; i++)
@@ -32,47 +33,44 @@ function fillInfos(ids) {
         const url = `https://api.themoviedb.org/3/movie/${ids[h]}?api_key=8983a24df86dd2ea15d86499d5ba0900&language=en-US`
         request(url, { json: true }, (err, res, body) => {
             if (err) { return console.log(err); }
-            const newMovie = new Movie({title: body.title,
-                category: body.genres[0].name,
-                overview: body.overview,
-                country: body.production_countries[0].name,
-                original_language: body.original_language,
-                moviePicture: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + body.poster_path
-            });
-            newMovie.save((err, movie) => {
-                if(err) console.error(err)
+            Movie.find({name: body.title }).exec((err, docs) => {
+                if (docs.length)
+                    return ;
+                else {
+                    const newMovie = new Movie({title: body.title,
+                        category: body.genres[0].name,
+                        overview: body.overview,
+                        country: body.production_countries[0].name,
+                        original_language: body.original_language,
+                        moviePicture: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + body.poster_path
+                    });
+                    newMovie.save((err, movie) => {
+                        if(err) console.error(err)
+                    })
+                }
             })
         })
     }
 }
 
 function fillCat() {
-    request('https://api.themoviedb.org/3/genre/movie/list?api_key=8983a24df86dd2ea15d86499d5ba0900&language=en-US', { json: true }, (err, res, body) => {
-        //const newCat = new Category({name: body.genre})
-        for (let i = 0; i < body.genres.length; i++) {
-            const newCat = new Category({name: body.genres[i].name})
-            newCat.save((err, category) => {
-                if(err) console.error(err)
-                console.log(category)
-            })
-        }
+    return new Promise((resolve, reject) => {
+        request('https://api.themoviedb.org/3/genre/movie/list?api_key=8983a24df86dd2ea15d86499d5ba0900&language=en-US', { json: true }, (err, res, body) => {
+            for (let i = 0; i < body.genres.length; i++) {
+                Category.find({name: body.genres[i].name}).exec((err, docs) => {
+                    if (docs.length)
+                        return ;
+                    else {
+                        const newCat = new Category({name: body.genres[i].name})
+                        newCat.save((err, category) => {
+                            if(err) console.error(err)
+                        })
+                    }
+                    })
+            }
+        })
     })
 }
-           
-            // const newMovie = new Movie(body.title.replace(/ /g,'aa'),
-            //     body.genres[0].name,
-            //     body.overview,
-            //     'XX',
-            //     body.production_countries[0].name,
-            //     body.original_language,
-            //     'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + body.poster_path);
-            // newMovie.save((err, movie) => {
-            //     if(err) console.error(err)
-            //     console.log(movie)
-            //     res.json(movie);
-    //         // })
-    //     })
-    // }
 
 const promise = fillIds(ids)
 const promise2 = fillInfos(ids)

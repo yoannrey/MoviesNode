@@ -5,13 +5,14 @@ block content
       input(type="text" name="search" autocomplete="off" placeholder="Search" id="myinput" onkeyup="searchFunction()")
   div(id="allMovies")
     each category in categories
-      h2=category.name
-      hr
-      each movie in movies
-        if category.name == movie.category
-          a(href=`/api/v1/${movie.id}/`)
-            div(class="container")
-                img(class="image" src=movie.moviePicture)
-                button(class="btn btn-primary")
-                  span(class="title")=movie.title
+      div(class="byCategory")
+        h2=category.name
+        hr
+        each movie in movies
+          if category.name == movie.category
+            a(href=`/api/v1/${movie.id}/`)
+              div(class="container")
+                  img(class="image" src=movie.moviePicture)
+                  button(class="btn btn-primary")
+                    span(class="title")=movie.title
           
