@@ -1,8 +1,11 @@
 extends layout
 block content
   h1 Netflux
+  div(class="routing")
+    a(href=`/api/v1/add`) Ajoute un film
+    a(href='/api/v1/gestion') Gestion
   div(class="md-form active-pink active-pink-2 mb-3 mt-0")
-      input(type="text" name="search" autocomplete="off" placeholder="Search" id="myinput" onkeyup="searchFunction()")
+      input.form-control(type="text" name="search" autocomplete="off" placeholder="Search" id="myinput" onkeyup="searchFunction()")
   div(id="allMovies")
     each category in categories
       div(class="byCategory")

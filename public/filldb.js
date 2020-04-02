@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5555;
 const mongoose = require('mongoose');
+const arg = process.argv[2];
+if(arg === undefined)
+    return ;
 
 mongoose.connect('mongodb://localhost/moviesdb', {useNewUrlParser: true});
 const db = mongoose.connection
@@ -18,7 +21,7 @@ let catergorie = []
 
 function fillIds(arr) {
     return new Promise((resolve, reject) => {
-        const url = 'https://api.themoviedb.org/3/movie/popular?api_key=8983a24df86dd2ea15d86499d5ba0900&language=en-US&page=6'
+        const url = 'https://api.themoviedb.org/3/movie/popular?api_key=8983a24df86dd2ea15d86499d5ba0900&language=en-US&page=' + arg
         request(url, { json: true }, (err, res, body) => {
             if (err) { return console.log(err); }
             for (let i = 0; i < body.results.length; i++)

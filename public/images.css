@@ -58,12 +58,23 @@ h1 h2{
     transition: 0.25s;
 }
 
+.routing {
+    left: 100%;
+}
+
+.routing a{
+    font-size: 20px;
+    margin-right: 50px;
+    display: inline;
+    color: white
+}
+
 .box input[type="submit"]:hover {
     background-color: #2ecc71;
 }
 
 .form-control {
-    width: 43%;
+    width: 70%;
 }
 
 .container {
@@ -76,6 +87,7 @@ h1 h2{
 }
 
 .active-pink input.form-control[type=text] {
+    content: '\f002';
     border-bottom: 1px solid #f48fb1;
     border-color: #333;
     color: white;
